@@ -1,18 +1,26 @@
 from __future__ import annotations
+from enum import Enum
+
+
+class Player(Enum):
+    min = "min"
+    max = "max"
+
 
 class Node:
-    def __init__(self, letter: str, val: int or None, children: list or None):
+    def __init__(self, letter: str, val: int or None, children: list or None, turn: Player):
         self.letter = letter
         self.val = val
         self.children = None
         if children is not None:
             self.children = children
+        self.turn = turn
 
     def print_self(self):
         if self.children is None:
-            print("{}, {}".format(self.letter, self.val))
+            print("{}, {}, {}".format(self.turn.name, self.letter, self.val))
         else:
-            print("{}, {}, children: ".format(self.letter, self.val))
+            print("{}, {}, {}, children: ".format(self.turn.name, self.letter, self.val))
             for child in self.children:
                 child: Node
                 child.print_self()
@@ -21,35 +29,35 @@ class Node:
 tree = Node("A", None, [
     Node("B", None, [
         Node("E", None, [
-            Node("K", 2, None),
-            Node("L", 1, None),
-            Node("M", 3, None),
-        ]),
+            Node("K", 2, None, Player.min),
+            Node("L", 1, None, Player.min),
+            Node("M", 3, None, Player.min),
+        ], Player.max),
         Node("F", None, [
-            Node("N", 5, None),
-            Node("O", 4, None)
-        ])
-    ]),
+            Node("N", 5, None, Player.min),
+            Node("O", 4, None, Player.min)
+        ], Player.max)
+    ], Player.min),
     Node("C", None, [
         Node("G", None, [
-            Node("P", 7, None)
-        ]),
+            Node("P", 7, None, Player.min)
+        ], Player.max),
         Node("H", None, [
-            Node("Q", 6, None),
-            Node("R", 8, None)
-        ])
-    ]),
+            Node("Q", 6, None, Player.min),
+            Node("R", 8, None, Player.min)
+        ], Player.max)
+    ], Player.min),
     Node("D", None, [
         Node("I", None, [
-            Node("S", 9, None),
-            Node("T", 10, None)
-        ]),
+            Node("S", 9, None, Player.min),
+            Node("T", 10, None, Player.min)
+        ], Player.max),
         Node("J", None, [
-            Node("U", 12, None),
-            Node("V", 11, None)
-        ])
-    ])
-])
+            Node("U", 12, None, Player.min),
+            Node("V", 11, None, Player.min)
+        ], Player.max)
+    ], Player.min)
+], Player.max)
 
 print(tree.print_self())
 
