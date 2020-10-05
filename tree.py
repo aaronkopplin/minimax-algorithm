@@ -29,9 +29,9 @@ class Node:
 
     def print_self(self):
         if self.children is None:
-            print("{}\t\t{}\t\t{}\t\tleaf node".format(self.turn.name, self.letter, self.val))
+            print("{}\t\t{}\t\t{}\t\t".format(self.turn.name, self.letter, self.val))
         else:
-            print("{}\t\t{}\t\t{}\t\tchildren: {}".format(self.turn.name, self.letter, self.val, " ".join([child.letter for child in self.children])))
+            print("{}\t\t{}\t\t{}\t\t{}".format(self.turn.name, self.letter, self.val, " ".join([child.letter for child in self.children])))
             for child in self.children:
                 child: Node
                 child.print_self()
