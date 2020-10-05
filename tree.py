@@ -11,9 +11,7 @@ class Node:
     def __init__(self, letter: str, val: int or None, children: list or None, turn: Player):
         self.letter = letter
         self.val = val
-        self.children = None
-        if children is not None:
-            self.children = children
+        self.children = children
         self.turn = turn
 
     def get_val(self):
@@ -31,9 +29,9 @@ class Node:
 
     def print_self(self):
         if self.children is None:
-            print("{}, {}, {}".format(self.turn.name, self.letter, self.val))
+            print("{}\t\t{}\t\t{}\t\tleaf node".format(self.turn.name, self.letter, self.val))
         else:
-            print("{}, {}, {}, children: ".format(self.turn.name, self.letter, self.val))
+            print("{}\t\t{}\t\t{}\t\tchildren: {}".format(self.turn.name, self.letter, self.val, " ".join([child.letter for child in self.children])))
             for child in self.children:
                 child: Node
                 child.print_self()
@@ -73,5 +71,7 @@ tree = Node("A", None, [
 ], Player.max)
 
 tree.get_val()
+print("Turn\tNode\tValue\tChildren")
+print("________________________________________")
 tree.print_self()
 
