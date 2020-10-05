@@ -16,6 +16,19 @@ class Node:
             self.children = children
         self.turn = turn
 
+    def get_val(self):
+        child: Node
+
+        if self.val is not None:
+            return self.val
+
+        if self.turn == Player.max:
+            self.val = max([child.get_val() for child in self.children])
+            return self.val
+        else:
+            self.val = min([child.get_val() for child in self.children])
+            return self.val
+
     def print_self(self):
         if self.children is None:
             print("{}, {}, {}".format(self.turn.name, self.letter, self.val))
@@ -59,6 +72,6 @@ tree = Node("A", None, [
     ], Player.min)
 ], Player.max)
 
-print(tree.print_self())
-
+tree.get_val()
+tree.print_self()
 
